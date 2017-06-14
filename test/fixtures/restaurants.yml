@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  address: MyString
+  neighborhood: MyString
+  price: 1
+  takeout: false
+
+two:
+  name: MyString
+  address: MyString
+  neighborhood: MyString
+  price: 1
+  takeout: false
