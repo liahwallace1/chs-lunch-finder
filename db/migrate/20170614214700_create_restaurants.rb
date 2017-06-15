@@ -5,6 +5,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.0]
       t.string :address
       t.string :city
       t.string :state
+      t.string :zip_code
       t.string :phone
       t.integer :price
       t.boolean :takeout

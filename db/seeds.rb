@@ -1,18 +1,3 @@
-#Create all neighborhood affiliated with downtown Charleston
-Neighborhood.create(title: "Ansonborough")
-Neighborhood.create(title: "Cannonborough")
-Neighborhood.create(title: "Eastside")
-Neighborhood.create(title: "French Quarter")
-Neighborhood.create(title: "Hampton Park Terrace")
-Neighborhood.create(title: "Harleston Village")
-Neighborhood.create(title: "King Street")
-Neighborhood.create(title: "Mazyck-Wraggborough")
-Neighborhood.create(title: "North Central")
-Neighborhood.create(title: "Radcliffborough")
-Neighborhood.create(title: "South of Broad")
-Neighborhood.create(title: "Wagener Terrace")
-Neighborhood.create(title: "Westside")
-
 
 #Create categories visible on yelp
 Category.create(title: "Restaurants")
