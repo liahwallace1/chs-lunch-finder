@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614221849) do
+ActiveRecord::Schema.define(version: 20170615140546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,14 +21,47 @@ ActiveRecord::Schema.define(version: 20170614221849) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "neighborhoods", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "restaurant_categories", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.integer  "category_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["category_id"], name: "index_restaurant_categories_on_category_id", using: :btree
+    t.index ["restaurant_id"], name: "index_restaurant_categories_on_restaurant_id", using: :btree
+  end
+
+  create_table "restaurant_neighborhoods", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.integer  "neighborhood_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["neighborhood_id"], name: "index_restaurant_neighborhoods_on_neighborhood_id", using: :btree
+    t.index ["restaurant_id"], name: "index_restaurant_neighborhoods_on_restaurant_id", using: :btree
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
-    t.string   "neighborhood"
+    t.string   "city"
+    t.string   "state"
+    t.string   "phone"
     t.integer  "price"
     t.boolean  "takeout"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.boolean  "delivery"
+    t.string   "website"
+    t.string   "yelp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "restaurant_categories", "categories"
+  add_foreign_key "restaurant_categories", "restaurants"
+  add_foreign_key "restaurant_neighborhoods", "neighborhoods"
+  add_foreign_key "restaurant_neighborhoods", "restaurants"
 end

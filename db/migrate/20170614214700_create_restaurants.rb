@@ -3,9 +3,14 @@ class CreateRestaurants < ActiveRecord::Migration[5.0]
     create_table :restaurants do |t|
       t.string :name
       t.string :address
-      t.string :neighborhood
+      t.string :city
+      t.string :state
+      t.string :phone
       t.integer :price
       t.boolean :takeout
+      t.boolean :delivery
+      t.string :website
+      t.string :yelp
 
       t.timestamps
     end
