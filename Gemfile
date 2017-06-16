@@ -7,6 +7,8 @@ end
 
 # Use Foreman to run rails and react servers at the same time
 gem 'foreman'
+#Use Faraday HTTP client librarby to get API responses
+gem 'faraday'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 # Use postgresql as the database for Active Record

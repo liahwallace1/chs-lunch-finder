@@ -1,5 +1,18 @@
 class Api::RestaurantsController < ApplicationController
 
+  def yelp
+    token_type = "Bearer"
+    access_token = "JcepQW2RIj8xLRN3wsdEv8vfE-2KVkrXa_mCD_CSxM3uGJXx1IinL3UFm7Y57kSiYKQgQpE6gfNcyh-ICDhWvy7KTZ2saO8ZIcm83GAML8goEZ7CGNulh9j06dJCWXYx"
+
+    @resp = Faraday.get 'https://api.yelp.com/v3/businesses/search' do |req|
+      req.headers['Authorization'] = "#{token_type} #{access_token}"
+      req.params['term'] = "Food"
+      req.params['location'] = "Charleston,+SC,+US"
+      req.params['open_at'] = DateTime.now.noon.to_i
+
+    end
+  end
+
   def index
     @restaurants = Restaurant.all
     render json: @restaurants
