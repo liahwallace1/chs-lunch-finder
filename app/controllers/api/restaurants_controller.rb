@@ -15,12 +15,14 @@ class Api::RestaurantsController < ApplicationController
 
     if @resp.success?
       body["businesses"].each do |restaurant|
-        new_rest = Restaurant.create(:name => restaurant["name"],
+        new_rest = Restaurant.create(
+        :name => restaurant["name"],
         :address => restaurant["location"]["display_address"],
         :city => restaurant["location"]["city"],
         :state => restaurant["location"]["state"],
         :zip_code => restaurant["location"]["zip_code"],
-        :phone => restaurant["display_phone"],
+        :phone => restaurant["phone"],
+        :display_phone => restaurant["display_phone"],
         :price => restaurant["price"],
         :takeout => if restaurant["transactions"].include?("pickup"),
         :delivery => if restaurant["transactions"].include?("delivery"),

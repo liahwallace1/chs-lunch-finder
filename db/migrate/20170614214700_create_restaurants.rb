@@ -7,11 +7,14 @@ class CreateRestaurants < ActiveRecord::Migration[5.0]
       t.string :state
       t.string :zip_code
       t.string :phone
-      t.integer :price
+      t.string :display_phone
+      t.string :price
       t.boolean :takeout
       t.boolean :delivery
-      t.string :website
-      t.string :yelp
+      t.float :yelp_rating
+      t.string :yelp_url
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end

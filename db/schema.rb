@@ -37,13 +37,16 @@ ActiveRecord::Schema.define(version: 20170614224358) do
     t.string   "state"
     t.string   "zip_code"
     t.string   "phone"
-    t.integer  "price"
+    t.string   "display_phone"
+    t.string   "price"
     t.boolean  "takeout"
     t.boolean  "delivery"
-    t.string   "website"
-    t.string   "yelp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "yelp_rating"
+    t.string   "yelp_url"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_foreign_key "restaurant_categories", "categories"
