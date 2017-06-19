@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170614224358) do
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
+    t.string   "yelp_id"
     t.string   "address"
     t.string   "city"
     t.string   "state"
