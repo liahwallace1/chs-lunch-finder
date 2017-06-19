@@ -20,38 +20,44 @@ class Restaurant < ApplicationRecord
 
     body = JSON.parse(resp.body)
 
-    if resp.success?
-      self.save_yelp_data(body)
-    else
-      @error = body["meta"]["errorDetail"]
-    end
+      if resp.success?
+        self.save_yelp_data(body)
+      else
+        @error = body["meta"]["errorDetail"]
+      end
   end
 
   def self.save_yelp_data(data)
     data["businesses"].map do |restaurant|
-        new_rest = Restaurant.find_or_create_by(
-          :yelp_id => restaurant["id"])
-        new_rest.update(
-        :name => restaurant["name"],
-        :address => restaurant["location"]["display_address"],
-        :city => restaurant["location"]["city"],
-        :state => restaurant["location"]["state"],
-        :zip_code => restaurant["location"]["zip_code"],
-        :phone => restaurant["phone"],
-        :display_phone => restaurant["display_phone"],
-        :price => restaurant["price"],
-        :takeout => if restaurant["transactions"].include?("pickup"),
-        :delivery => if restaurant["transactions"].include?("delivery"),
-        :yelp_rating => restaurant["rating"]
-        :yelp_url => restaurant["url"],
-        :latitude => restaurant["coordinates"]["latitude"],
-        :longitude => restaurant["coordinates"]["longitude"])
+      new_rest = Restaurant.find_or_create_by(
+        yelp_id: restaurant["id"])
+      new_rest.update_attributes_from_api(restaurant)
+      new_rest.update_categories_from_api(restaurant["categories"])
+    end
+  end
 
-        restaurant["categories"].map do |category|
-          cat = Category.find_or_create_by(title: category["title"])
-          new_rest.categories << cat unless new_rest.categories.include?(cat)
-        end
-      end
+  def update_attributes_from_api(restaurant)
+    self.name = restaurant["name"]
+    self.address = restaurant["location"]["display_address"]
+    self.city = restaurant["location"]["city"]
+    self.state = restaurant["location"]["state"]
+    self.zip_code = restaurant["location"]["zip_code"]
+    self.phone = restaurant["phone"]
+    self.display_phone = restaurant["display_phone"]
+    self.price = restaurant["price"]
+    self.takeout = false unless restaurant["transactions"].include?("pickup")
+    self.delivery = false unless restaurant["transactions"].include?("delivery")
+    self.yelp_rating = restaurant["rating"]
+    self.yelp_url = restaurant["url"]
+    self.latitude = restaurant["coordinates"]["latitude"]
+    self.longitude = restaurant["coordinates"]["longitude"]
+  end
+
+  def update_categories_from_api(api_categories)
+    api_categories.map do |category|
+      new_cat = Category.find_or_create_by(title: category["title"])
+      self.categories << new_cat unless self.categories.include?(new_cat)
+    end
   end
 
 end
