@@ -33,6 +33,7 @@ class Restaurant < ApplicationRecord
         yelp_id: restaurant["id"])
       new_rest.update_attributes_from_api(restaurant)
       new_rest.update_categories_from_api(restaurant["categories"])
+      new_rest.save
     end
   end
 

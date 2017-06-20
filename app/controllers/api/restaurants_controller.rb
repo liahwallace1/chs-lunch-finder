@@ -1,35 +1,32 @@
-class Api::RestaurantsController < Api::BaseController
+class Api::RestaurantsController < ApplicationController
 
-  def create respond_with :api, :v1, Item.create(item_params) end
-    def destroy respond_with Item.destroy(params[:id]) end
-      def update item = Item.find(params["id"]) item.update_attributes(item_params) respond_with item, json: item end
 
   def index
-    respond_with Restaurant.all
+    restaurants = Restaurant.all
+    render json: restaurants
   end
 
   def create
     restaurant = Restaurant.create(restaurant_params)
     if restaurant.save
-      respond_with Restaurant.all, success: "You added a restaurant!"
+      render json: Restaurant.all, success: "You added a restaurant!"
     else
-      respond_with {message: "Dang! That didn't work."}, status: 412
+      render json: {message: "Dang! That didn't work."}, status: 412
     end
   end
 
   def show
     set_restaurant
-    respond_with :api, @restaurant
+    render json: @restaurant
   end
 
   def destroy
-    # set_restaurant
-    # if @restaurant.destroy
-    #   render json: Restaurant.all, success: "Success! That crappy restaurant is out of rotation."
-    # else
-    #   render json: {message: "Dang! That didn't work."}, status: 412
-    # end
-    respond_with Restaurant.destroy(params[:id])
+    set_restaurant
+    if @restaurant.delete
+      render json: Restaurant.all, success: "Success! That crappy restaurant is out of rotation."
+    else
+      render json: {message: "Dang! That didn't work."}, status: 412
+    end
   end
 
   private
