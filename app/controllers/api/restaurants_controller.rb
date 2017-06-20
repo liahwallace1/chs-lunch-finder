@@ -1,4 +1,4 @@
-class Api::RestaurantsController < ApplicationController
+class Api::RestaurantsController < Api::BaseController
 
   # def yelp_create
   #   token_type = "Bearer"

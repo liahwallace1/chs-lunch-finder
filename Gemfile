@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Use Responders to allow respond_to rule to all the actions in our controllers
+gem 'responders'
 # Use Foreman to run rails and react servers at the same time
 gem 'foreman'
 #Use Faraday HTTP client librarby to get API responses
