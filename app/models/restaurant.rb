@@ -49,6 +49,7 @@ class Restaurant < ApplicationRecord
     self.takeout = false unless restaurant["transactions"].include?("pickup")
     self.delivery = false unless restaurant["transactions"].include?("delivery")
     self.yelp_rating = restaurant["rating"]
+    self.image_url = restaurant["image_url"]
     self.yelp_url = restaurant["url"]
     self.latitude = restaurant["coordinates"]["latitude"]
     self.longitude = restaurant["coordinates"]["longitude"]
