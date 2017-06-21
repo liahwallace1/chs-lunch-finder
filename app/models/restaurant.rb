@@ -39,7 +39,7 @@ class Restaurant < ApplicationRecord
 
   def update_attributes_from_api(restaurant)
     self.name = restaurant["name"]
-    self.address = restaurant["location"]["display_address"]
+    self.address = restaurant["location"]["display_address"][0]
     self.city = restaurant["location"]["city"]
     self.state = restaurant["location"]["state"]
     self.zip_code = restaurant["location"]["zip_code"]
