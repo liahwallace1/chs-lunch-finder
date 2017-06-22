@@ -69,4 +69,8 @@ class Restaurant < ApplicationRecord
     end
   end
 
+  def category_list
+    self.categories.map {|category| category.title}.join(", ")
+  end
+
 end
