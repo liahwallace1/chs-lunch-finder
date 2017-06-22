@@ -53,8 +53,8 @@ class Restaurant < ApplicationRecord
     self.phone = restaurant["phone"]
     self.display_phone = restaurant["display_phone"]
     self.price = restaurant["price"]
-    self.takeout = false unless restaurant["transactions"].include?("pickup")
-    self.delivery = false unless restaurant["transactions"].include?("delivery")
+    restaurant["transactions"].include?("pickup") ? self.takeout = true : self.takeout = false
+    restaurant["transactions"].include?("delivery") ? self.delivery = true : self.delivery = false
     self.yelp_rating = restaurant["rating"]
     self.image_url = restaurant["image_url"]
     self.yelp_url = restaurant["url"]
