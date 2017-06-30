@@ -144,7 +144,7 @@ DEPENDENCIES
   faraday
   foreman
   listen (~> 3.0.5)
-  pg (~> 0.18)
+  pg (~> 0.21)
   pry
   puma (~> 3.6.2)
   rack-cors
@@ -154,4 +154,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
