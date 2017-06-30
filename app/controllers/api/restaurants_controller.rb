@@ -1,6 +1,7 @@
 class Api::RestaurantsController < ApplicationController
 
   def index
+    Restaurant.get_yelp_data
     restaurants = Restaurant.all
     render json: restaurants
   end
