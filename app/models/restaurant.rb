@@ -1,8 +1,8 @@
 class Restaurant < ApplicationRecord
   has_many :restaurant_categories
   has_many :categories, through: :restaurant_categories
-  has_many :restaurant_neighborhoods
-  has_many :neighborhoods, through: :restaurant_neighborhoods
+  has_many :restaurant_hashtags
+  has_many :hashtags, through: :restaurant_hashtags
 
   validates :yelp_id, :uniqueness => true
 
@@ -27,7 +27,7 @@ class Restaurant < ApplicationRecord
     body = JSON.parse(resp.body)
 
       if resp.success?
-        self.delete_old_restaurants(body)
+        # self.delete_old_restaurants(body)
         self.save_yelp_data(body)
       else
         @error = body["meta"]["errorDetail"]
@@ -48,6 +48,7 @@ class Restaurant < ApplicationRecord
     self.all.map do |restaurant|
       if !data["businesses"].include?(restaurant)
         RestaurantCategory.where(restaurant_id: restaurant.id).destroy_all
+        RestaurantHashtag.where(restaurant_id: restaurant.id).destroy_all
         restaurant.destroy
       end
     end
