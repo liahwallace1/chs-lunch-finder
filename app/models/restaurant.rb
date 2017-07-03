@@ -27,6 +27,7 @@ class Restaurant < ApplicationRecord
     body = JSON.parse(resp.body)
 
       if resp.success?
+        self.delete_old_restaurants(body)
         self.save_yelp_data(body)
       else
         @error = body["meta"]["errorDetail"]
@@ -34,13 +35,21 @@ class Restaurant < ApplicationRecord
   end
 
   def self.save_yelp_data(data)
-    self.clear_restaurants
     data["businesses"].map do |restaurant|
       new_rest = Restaurant.find_or_create_by(
         yelp_id: restaurant["id"])
       new_rest.update_attributes_from_api(restaurant)
       new_rest.update_categories_from_api(restaurant["categories"])
       new_rest.save
+    end
+  end
+
+  def self.delete_old_restaurants(data)
+    self.all.map do |restaurant|
+      if !data["businesses"].include?(restaurant)
+        RestaurantCategory.where(restaurant_id: restaurant.id).destroy_all
+        restaurant.destroy
+      end
     end
   end
 
