@@ -1,0 +1,2 @@
+class RestaurantHashtag < ApplicationRecord
+end
