@@ -1,7 +1,7 @@
 class Api::HashtagsController < ApplicationController
 
   def index
-    hashtags = Hashtag.all
+    hashtags = Hashtag.all.order(:name)
     render json: hashtags
   end
 
