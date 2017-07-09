@@ -6,24 +6,20 @@ class Api::RestaurantsController < ApplicationController
     render json: restaurants
   end
 
-  def create
-    restaurant = Restaurant.create(restaurant_params)
-    if restaurant.save
-      render json: Restaurant.all, success: "You added a restaurant!"
-    else
-      render json: {message: "Dang! That didn't work."}, status: 412
-    end
-  end
-
   def show
-    set_restaurant
-    render json: @restaurant
+    restaurant = Restaurant.find(params[:id])
+    render json: restaurant
   end
 
-  def destroy
-    set_restaurant
-    if @restaurant.delete
-      render json: Restaurant.all, success: "Success! That crappy restaurant is out of rotation."
+  def update
+    restaurant = Restaurant.find(params[:id])
+    params[:hashtags_list].map do |hashtag|
+      new_hashtag = Hashtag.find_by(name: hashtag)
+      restaurant.hashtags << new_hashtag unless restaurant.hashtags.include?(new_hashtag)
+    end
+
+    if restaurant.save
+      render json: Restaurant.all
     else
       render json: {message: "Dang! That didn't work."}, status: 412
     end
@@ -36,7 +32,7 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:yelp_id, :name, :address, :city, :state, :zip_code, :phone, :display_phone, :price, :takeout, :delivery, :yelp_rating, :yelp_url, :latitude, :longitude, category_ids: [])
+    params.require(:restaurant).permit(:id, :yelp_id, :name, :address, :city, :state, :zip_code, :phone, :display_phone, :price, :takeout, :delivery, :yelp_rating, :yelp_url, :latitude, :longitude, category_ids: [])
   end
 
 end
