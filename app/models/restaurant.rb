@@ -23,7 +23,7 @@ class Restaurant < ApplicationRecord
       req.params['limit'] = "50"
       req.params['open_at'] = DateTime.now.noon.to_i
     end
-
+    
     body = JSON.parse(resp.body)
 
       if resp.success?
