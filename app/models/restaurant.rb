@@ -14,7 +14,7 @@ class Restaurant < ApplicationRecord
 
   def self.get_yelp_data
     token_type = "Bearer"
-    access_token = "JcepQW2RIj8xLRN3wsdEv8vfE-2KVkrXa_mCD_CSxM3uGJXx1IinL3UFm7Y57kSiYKQgQpE6gfNcyh-ICDhWvy7KTZ2saO8ZIcm83GAML8goEZ7CGNulh9j06dJCWXYx"
+    access_token = ENV['YELP_TOKEN']
 
     resp = Faraday.get 'https://api.yelp.com/v3/businesses/search' do |req|
       req.headers['Authorization'] = "#{token_type} #{access_token}"
@@ -23,7 +23,7 @@ class Restaurant < ApplicationRecord
       req.params['limit'] = "50"
       req.params['open_at'] = DateTime.now.noon.to_i
     end
-    
+
     body = JSON.parse(resp.body)
 
       if resp.success?

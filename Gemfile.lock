@@ -50,6 +50,10 @@ GEM
       activesupport
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubis (2.7.0)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
@@ -104,6 +108,11 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.0.3)
       actionpack (= 5.0.3)
       activesupport (= 5.0.3)
@@ -141,6 +150,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   byebug
+  dotenv-rails
   faraday
   foreman
   listen (~> 3.0.5)
@@ -149,6 +159,7 @@ DEPENDENCIES
   puma (~> 3.6.2)
   rack-cors
   rails (~> 5.0.2)
+  rails_12factor
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
