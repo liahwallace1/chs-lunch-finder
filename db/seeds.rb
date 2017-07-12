@@ -35,3 +35,12 @@ Category.create(title: "Thai")
 Category.create(title: "Soup")
 Category.create(title: "Beer Bar")
 Category.create(title: "Mediterranean")
+
+
+#create hashtags
+hashtags = ["#cheapAF", "#spendy", "#counterservice", "#crowded", "#light", "#vegfriendly", "#caffinate", "#wifi", "#nowifi", "#napinducing", "#amazeballs", "#bestservice", "#smallspace", "#PIZZA", "#coolkids", "#leftovers", "#bestbrews", "#yoprocentral", "#tourons", "#noparking", "#parkinglot", "#fancy", "#quick", "#healthy"]
+
+
+hashtags.map do |hashtag|
+  Hashtag.find_or_create_by(name: hashtag)
+end

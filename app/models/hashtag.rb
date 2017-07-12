@@ -3,13 +3,4 @@ class Hashtag < ApplicationRecord
   has_many :hashtags, through: :restaurant_hastags
 
 
-  hashtags = ["#cheapAF", "#spendy", "#counterservice", "#crowded", "#light", "#vegfriendly", "#caffinate", "#wifi", "#nowifi", "#napinducing", "#amazeballs", "#bestservice", "#smallspace", "#PIZZA", "#coolkids", "#leftovers", "#bestbrews", "#yoprocentral", "#tourons", "#noparking", "#parkinglot", "#fancy", "#quick", "#healthy"]
-
-  def self.create_hashtags(hashtags)
-    hashtags.map do |hashtag|
-      Hashtag.find_or_create_by(name: hashtag)
-    end
-  end
-
-
 end
